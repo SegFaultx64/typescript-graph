@@ -31,9 +31,9 @@ export class NodeDoesntExistError<T> extends Error {
 }
 
 export default class Graph<T> {
-  private nodes: Map<string, T>;
-  private adjacency: Array<Array<Direction>>;
-  private nodeIdentity: (t: T) => string;
+  protected nodes: Map<string, T>;
+  protected adjacency: Array<Array<Direction>>;
+  protected nodeIdentity: (t: T) => string;
 
   constructor(nodeIdentity: (node: T) => string = (node) => hash(node)) {
     this.nodes = new Map();
@@ -92,6 +92,8 @@ export default class Graph<T> {
     const node2Index = Array.from(this.nodes.keys()).indexOf(node2Identity);
 
     this.adjacency[node1Index][node2Index] = 1
-    this.adjacency[node2Index][node1Index] = -1
+
+    if (this.adjacency[node2Index][node1Index] === undefined || this.adjacency[node2Index][node1Index] < 1)
+      this.adjacency[node2Index][node1Index] = -1
   }
 }

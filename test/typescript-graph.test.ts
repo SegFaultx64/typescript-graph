@@ -134,5 +134,10 @@ var hash = require('object-hash');
     expect((graph as any).adjacency[0][1]).toBe(1)
     expect((graph as any).adjacency[1][0]).toBe(-1)
     expect((graph as any).adjacency[1][2]).toBe(0)
+
+    graph.addEdge('2.00', '1.00')
+    expect((graph as any).adjacency[0][1]).toBe(1)
+    expect((graph as any).adjacency[1][0]).toBe(1)
+    expect((graph as any).adjacency[1][2]).toBe(0)
   })
  })
