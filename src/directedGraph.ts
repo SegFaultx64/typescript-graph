@@ -1,7 +1,13 @@
 import Graph, { NodeDoesntExistError } from "./typescript-graph";
 
 export default class DirectedGraph<T> extends Graph<T> {
+    private hasCycle?: boolean;
+
     isAcyclic(): boolean {
+        if (this.hasCycle !== undefined) {
+            return !this.hasCycle
+        }
+
         const nodeIndices = Array.from(this.nodes.keys());
         const nodeInDegrees = new Map(Array.from(this.nodes.keys()).map(n => [n, this.inDegreeOfNode(n)]))
 
@@ -34,7 +40,9 @@ export default class DirectedGraph<T> extends Graph<T> {
             visitedNodes++;
         }
 
-        return visitedNodes === this.nodes.size
+        this.hasCycle = !(visitedNodes === this.nodes.size)
+
+        return visitedNodes === this.nodes.size;
     }
 
     inDegreeOfNode(nodeID: string): number {
@@ -48,5 +56,12 @@ export default class DirectedGraph<T> extends Graph<T> {
         return this.adjacency.reduce<number>((carry, row) => {
             return carry + ((row[indexOfNode] > 0)? 1 : 0);
         }, 0)
+    }
+
+    addEdge(node1Identity: string, node2Identity: string) {
+        if (!this.hasCycle) {
+            this.hasCycle = undefined;
+        }
+        super.addEdge(node1Identity, node2Identity)
     }
 }

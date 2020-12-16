@@ -94,6 +94,14 @@ import { NodeDoesntExistError } from '../src/typescript-graph'
 
     expect(graph3.isAcyclic()).toBe(false)
 
+    graph3.addEdge('E', 'C')
+
+    expect(graph3.isAcyclic()).toBe(false)
+
+    graph3.addEdge('E', 'E')
+
+    expect(graph3.isAcyclic()).toBe(false)
+
   })
 
  })
