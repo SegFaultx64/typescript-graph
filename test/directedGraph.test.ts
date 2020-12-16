@@ -1,5 +1,6 @@
 import DirectedGraph from '../src/directedGraph'
-import { NodeDoesntExistError } from '../src/typescript-graph'
+import { NodeDoesntExistError } from '../src/errors'
+
 /***
  * Directed Graph test
  */
@@ -17,19 +18,19 @@ describe("Directed Graph", () => {
     graph.insert({ name: 'B' })
     graph.insert({ name: 'C' })
 
-    expect(graph.inDegreeOfNode('A')).toBe(0)
-    expect(graph.inDegreeOfNode('B')).toBe(0)
-    expect(graph.inDegreeOfNode('C')).toBe(0)
-    expect(() => graph.inDegreeOfNode('D')).toThrowError(NodeDoesntExistError)
+    expect(graph.indegreeOfNode('A')).toBe(0)
+    expect(graph.indegreeOfNode('B')).toBe(0)
+    expect(graph.indegreeOfNode('C')).toBe(0)
+    expect(() => graph.indegreeOfNode('D')).toThrowError(NodeDoesntExistError)
 
     graph.addEdge('A', 'B')
     graph.addEdge('B', 'C')
     graph.addEdge('A', 'C')
     graph.addEdge('C', 'A')
 
-    expect(graph.inDegreeOfNode('A')).toBe(1)
-    expect(graph.inDegreeOfNode('B')).toBe(1)
-    expect(graph.inDegreeOfNode('C')).toBe(2)
+    expect(graph.indegreeOfNode('A')).toBe(1)
+    expect(graph.indegreeOfNode('B')).toBe(1)
+    expect(graph.indegreeOfNode('C')).toBe(2)
 
 
   })

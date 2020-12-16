@@ -1,4 +1,5 @@
-import Graph, { NodeAlreadyExistsError, NodeDoesntExistError } from "../src/typescript-graph"
+import { NodeAlreadyExistsError, NodeDoesntExistError } from "../src/errors";
+import Graph from "../src/typescript-graph"
 var hash = require('object-hash');
 
 /***

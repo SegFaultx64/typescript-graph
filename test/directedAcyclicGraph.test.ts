@@ -1,6 +1,7 @@
 import DirectedGraph from '../src/directedGraph'
-import DirectedAcyclicGraph, { CycleError } from '../src/directedAcyclicGraph'
-import { NodeDoesntExistError } from '../src/typescript-graph'
+import DirectedAcyclicGraph from '../src/directedAcyclicGraph'
+import { CycleError } from '../src/errors'
+
 /***
  * Directed Acyclic Graph test
  */
