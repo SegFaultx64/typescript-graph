@@ -18,9 +18,9 @@ npm install 'typescript-graph'
 import { Graph } from 'typescript-graph'
 
 // Identify the node type to be used with the graph
-type NodeType = { name: string, count: number, metadata: {[string]: string} }
+type NodeType = { name: string, count: number, metadata: { [string: string]: string } }
 // Define a custom identity function with which to identify nodes
-const graph = new Graph<NodeType>((n: Nodetype) => n.name)
+const graph = new Graph<NodeType>((n: NodeType) => n.name)
 
 // Insert nodes into the graph
 const node1 = graph.insert({name: 'node1', count: 45, metadata: {color: 'green'}})
@@ -41,7 +41,7 @@ import { DirectedGraph, DirectedAcyclicGraph } from 'typescript-graph'
 
 // Create the graph
 type NodeType = { name: string, count: number }
-const graph = new DirectedGraph<NodeType>((n: Nodetype) => n.name)
+const graph = new DirectedGraph<NodeType>((n: NodeType) => n.name)
 
 // Insert nodes into the graph
 const node1 = graph.insert({name: 'node1', count: 45})
@@ -80,7 +80,7 @@ import { DirectedAcyclicGraph } from 'typescript-graph'
 
 // Create the graph
 type NodeType = { name: string }
-const graph = new DirectedAcyclicGraph<NodeType>((n: Nodetype) => n.name)
+const graph = new DirectedAcyclicGraph<NodeType>((n: NodeType) => n.name)
 
 // Insert nodes into the graph
 const node1 = graph.insert({name: 'node1'})
