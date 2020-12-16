@@ -81,6 +81,14 @@ describe("Directed Acyclic Graph", () => {
 
     expect([{ name: 'C' }, { name: 'D' }]).toContainEqual(topoList3[1])
     expect([{ name: 'C' }, { name: 'D' }]).toContainEqual(topoList3[2])
+
+    graph.insert({ name: 'F' })
+
+    const topoList4 = graph.topologicallySortedNodes();
+
+    expect(topoList4).toContainEqual({ name: 'F' })
+    expect([{ name: 'A' }, { name: 'F' }]).toContainEqual(topoList4[0])
+    expect([{ name: 'A' }, { name: 'F' }]).toContainEqual(topoList4[1])
   })
 
 })
