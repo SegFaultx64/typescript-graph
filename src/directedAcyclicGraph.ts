@@ -37,15 +37,16 @@ export default class DirectedAcyclicGraph<T> extends DirectedGraph<T> {
 
     // Maintain topo sort when inserting node
     insert(node: T): string {
-        if (this._topologicallySortedNodes)
+        if (this._topologicallySortedNodes) {
             this._topologicallySortedNodes = [node, ...this._topologicallySortedNodes];
+        }
         
         return super.insert(node)
     }
 
     // This is an implementation of Kahn's algorithim
     topologicallySortedNodes(): Array<T> {
-        if (this._topologicallySortedNodes != undefined) {
+        if (this._topologicallySortedNodes !== undefined) {
             return this._topologicallySortedNodes;
         }
 

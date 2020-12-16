@@ -148,7 +148,8 @@ describe("Directed Graph", () => {
     graph.addEdge('A', 'B')
 
     expect(graph.canReachFrom('B', 'C')).toBe(false)
-    expect(graph.canReachFrom('B', 'A')).toBe(true)
+    expect(graph.canReachFrom('A', 'B')).toBe(true)
+    expect(graph.canReachFrom('B', 'A')).toBe(false)
 
     graph.addEdge('B', 'C')
 

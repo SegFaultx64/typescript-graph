@@ -1,6 +1,9 @@
-var hash = require('object-hash');
+/**
+ * This is the default nodeIdentity function it is simply imported from [object-hash](https://www.npmjs.com/package/object-hash)
+ */
+const hash = require('object-hash');
 
-export type Direction = 1 | 0 | -1;
+export type Edge = 1 | 0;
 export class NodeAlreadyExistsError<T> extends Error {
   public newNode: T;
   public oldNode: T;
@@ -30,9 +33,12 @@ export class NodeDoesntExistError<T> extends Error {
   }
 }
 
+/**
+ * @typeParam T  `T` is the node type of the graph. Nodes can be anything in all the included examples they are simple objects.
+ */
 export default class Graph<T> {
   protected nodes: Map<string, T>;
-  protected adjacency: Array<Array<Direction>>;
+  protected adjacency: Array<Array<Edge>>;
   protected nodeIdentity: (t: T) => string;
 
   constructor(nodeIdentity: (node: T) => string = (node) => hash(node)) {
@@ -82,18 +88,17 @@ export default class Graph<T> {
     const node1Exists = this.nodes.has(node1Identity)
     const node2Exists = this.nodes.has(node2Identity)
 
-    if (!node1Exists)
+    if (!node1Exists) {
       throw new NodeDoesntExistError(node1Identity)
+    }
 
-    if (!node2Exists)
+    if (!node2Exists) {
       throw new NodeDoesntExistError(node2Identity)
+    }
 
     const node1Index = Array.from(this.nodes.keys()).indexOf(node1Identity);
     const node2Index = Array.from(this.nodes.keys()).indexOf(node2Identity);
 
     this.adjacency[node1Index][node2Index] = 1
-
-    if (this.adjacency[node2Index][node1Index] === undefined || this.adjacency[node2Index][node1Index] < 1)
-      this.adjacency[node2Index][node1Index] = -1
   }
 }

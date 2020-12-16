@@ -15,8 +15,9 @@ export default class DirectedGraph<T> extends Graph<T> {
 
         let visitedNodes = 0;
 
-        if (toSearch.length === 0)
+        if (toSearch.length === 0) {
             return false
+        }
         
         while (toSearch.length > 0) {
             const cur = toSearch.pop();
@@ -70,7 +71,7 @@ export default class DirectedGraph<T> extends Graph<T> {
         const startNodeIndex = nodeIdentities.indexOf(startNode);
         const endNodeIndex = nodeIdentities.indexOf(endNode);
 
-        if (this.adjacency[startNodeIndex][endNodeIndex]) {
+        if (this.adjacency[startNodeIndex][endNodeIndex] > 0) {
             return true
         }
 
