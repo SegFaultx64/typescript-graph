@@ -1,5 +1,4 @@
-import DirectedGraph from '../src/directedGraph'
-import DirectedAcyclicGraph from '../src/directedAcyclicGraph'
+import { DirectedGraph, DirectedAcyclicGraph } from '../src/'
 import { CycleError } from '../src/errors'
 
 /***

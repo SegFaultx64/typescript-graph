@@ -1,4 +1,4 @@
-import DirectedGraph from '../src/directedGraph'
+import { DirectedGraph } from '../src/'
 import { NodeDoesntExistError } from '../src/errors'
 
 /***

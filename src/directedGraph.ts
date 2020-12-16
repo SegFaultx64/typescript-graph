@@ -1,5 +1,5 @@
 import { NodeDoesntExistError } from "./errors";
-import Graph from "./typescript-graph";
+import Graph from "./graph";
 
 export default class DirectedGraph<T> extends Graph<T> {
     /** Caches if the graph contains a cycle. If `undefined` then it is unknown. */
