@@ -58,8 +58,8 @@ export default class DirectedGraph<T> extends Graph<T> {
         }, 0)
     }
 
-    addEdge(node1Identity: string, node2Identity: string) {
-        if (!this.hasCycle) {
+    addEdge(node1Identity: string, node2Identity: string, skipUpdatingCyclicality: boolean = false) {
+        if (!this.hasCycle && !skipUpdatingCyclicality) {
             this.hasCycle = this.wouldAddingEdgeCreateCyle(node1Identity, node2Identity);
         }
         super.addEdge(node1Identity, node2Identity)

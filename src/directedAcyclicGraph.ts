@@ -22,12 +22,12 @@ export default class DirectedAcyclicGraph<T> extends DirectedGraph<T> {
         return toRet;
     }
 
-
+    // Maintain correctness when inserting an edge (not nesscary when inserting a node.)
     addEdge(node1Identity: string, node2Identity: string) {
         if (this.wouldAddingEdgeCreateCyle(node1Identity, node2Identity)) {
             throw new CycleError(`Can't add edge from ${node1Identity} to ${node2Identity} it would create a cycle`)
         }
-        super.addEdge(node1Identity, node2Identity)
+        super.addEdge(node1Identity, node2Identity, true)
     }
 
     // This is an implementation of Kahn's algorithim
