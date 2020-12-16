@@ -14,7 +14,83 @@ export type Edge = 1 | 0;
 /**
  * # Graph
  * 
- * A `Graph` is is a simple undirected graph.
+ * A `Graph` is is a simple undirected graph. On it's own it isn't too useful but it forms the basic functionality for the [[`DirectedGraph`]] and [[`DirectedAcyclicGraph`]].
+ * 
+ * ## Creating a Graph
+ * 
+ * You can create a graph to contain any type of node, for example:
+ * 
+ * ```typescript
+ * type NodeType = { a: Number, b: string }
+ * const graph = new Graph<NodeType>()
+ * 
+ * // Add a node of the defined type
+ * graph.insert({ a: 10, b: 'string' })
+ * ```
+ * 
+ * ### Defining a custom node identity
+ *
+ * When you create a graph you likely want to create include a custom `nodeIdentity` function. 
+ * This function tells the graph how to uniquely identify nodes in a graph, 
+ * default is to simply use an [[hash]] which means that functionality like [[`replace`]] will not work.
+ *
+ * ```typescript
+ * type NodeType = { count: number, name: string }
+ * const graph = new Graph<NodeType>((n) => n.name)
+ *
+ * // Add a node
+ * graph.insert({ count: 5, name: 'node1' })
+ * // This will throw an error even though `count` is different because they share a name.
+ * graph.insert({ count: 20, name: 'node1' })
+ * ```
+ * 
+ * ### Adding an edge
+ * 
+ * Graphs without edges aren't very useful. Inserting edges is done using the node identity string returned by the node identity function.
+ * 
+ * ```typescript
+ * const node1: string = graph.insert({ count: 5, name: 'node1' })
+ * const node2: string = graph.insert({ count: 20, name: 'node2' })
+ * 
+ * graph.addEdge(node1, node2)
+ * 
+ * // This will throw an error since there is no node with the later name.
+ * graph.addEdge(node1, 'not a real node')
+ * ```
+ * 
+ * In an undirected graph the order in which you input the node names doesn't matter,
+ * but in directed graphs the "from node" comes first and the "to node" will come second.
+ * 
+ * ### Replacing a node
+ * 
+ * If a node already exists you can update it using [[`replace`]]. `nodeIdentity(newNode)` must be equal to `nodeIdentity(oldNode)`.
+ * 
+ * ```typescript
+ * const node1: string = graph.insert({ count: 5, name: 'node1' })
+ * const node2: string = graph.insert({ count: 20, name: 'node2' })
+ * 
+ * // This will work because the name has not changed.
+ * graph.replace({ count: 15, name: 'node1' })
+ * 
+ * // This will not work because the name has changed.
+ * graph.replace({ count: 20, name: 'node3' })
+ * ```
+ * 
+ * [[`replace`]] will throw a [[`NodeDoesntExistError`]] exception if you are trying to replace a node that is missing from the graph.
+ * 
+ * ### Upsert
+ * 
+ * Often you will want to create a node node if it doesn't exist and update it does. This can be achieved using [[`upsert`]].
+ * 
+ * ```typescript
+ * const node1: string = graph.insert({ count: 5, name: 'node1' })
+ *
+ * // Both of these will work, the first updating node1 and the second creating a node.
+ * const node2: string = graph.upsert({ count: 15, name: 'node1' })
+ * const node3: string = graph.upsert({ count: 25, name: 'node3' })
+ * ```
+ * 
+ * [[`upsert`]] always return the node identity string of the inserted or updated node. At presented there is no way to tell if the node was created or updated.
  * 
  * @typeParam T  `T` is the node type of the graph. Nodes can be anything in all the included examples they are simple objects.
  */
