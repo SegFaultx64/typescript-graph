@@ -60,8 +60,30 @@ export default class DirectedGraph<T> extends Graph<T> {
 
     addEdge(node1Identity: string, node2Identity: string) {
         if (!this.hasCycle) {
-            this.hasCycle = undefined;
+            this.hasCycle = this.wouldAddingEdgeCreateCyle(node1Identity, node2Identity);
         }
         super.addEdge(node1Identity, node2Identity)
+    }
+
+    canReachFrom(startNode: string, endNode: string): boolean {
+        const nodeIdentities = Array.from(this.nodes.keys());
+        const startNodeIndex = nodeIdentities.indexOf(startNode);
+        const endNodeIndex = nodeIdentities.indexOf(endNode);
+
+        if (this.adjacency[startNodeIndex][endNodeIndex]) {
+            return true
+        }
+
+        return this.adjacency[startNodeIndex].reduce<boolean>((carry, edge, index) => {
+            if (carry || (edge < 1)) {
+                return carry;
+            }
+
+            return this.canReachFrom(nodeIdentities[index], endNode)
+        }, false)
+    }
+
+    wouldAddingEdgeCreateCyle(node1Identity: string, node2Identity: string): boolean {
+        return node1Identity === node2Identity || this.canReachFrom(node2Identity, node1Identity);
     }
 }
