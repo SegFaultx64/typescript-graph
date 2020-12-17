@@ -1,6 +1,7 @@
 {
   "name": "typescript-graph",
-  "version": "0.0.0",
+  "homepage": "https: //segfaultx64.github.io/typescript-graph/",
+  "version": "0.1.1",
   "description": "",
   "keywords": [],
   "main": "dist/typescript-graph.umd.js",
@@ -12,7 +13,7 @@
   "author": "Max Walker <maxwell.a.walker@gmail.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/SegFaultx64/typescript-graph"
   },
   "license": "MIT",
   "engines": {
