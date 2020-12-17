@@ -1,6 +1,13 @@
 import { NodeDoesntExistError } from "./errors";
 import Graph from "./graph";
 
+/**
+ * # DirectedGraph
+ * 
+ * A DirectedGraph is similar a [[`Graph`]] but with additional functionality.
+ * 
+ * @typeParam T `T` is the node type of the graph. Nodes can be anything in all the included examples they are simple objects.
+ */
 export default class DirectedGraph<T> extends Graph<T> {
     /** Caches if the graph contains a cycle. If `undefined` then it is unknown. */
     protected hasCycle?: boolean;

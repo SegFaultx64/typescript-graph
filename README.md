@@ -1,6 +1,6 @@
 # typescript-graph
 
-This library provides some basic [graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)) data structures and algorithims.
+This library provides some basic [graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)) data structures and algorithms.
 
 It supports undirected graphs, directed graphs and directed acyclic graphs (including inforcing acyclicality). It does not support weighted graphs at this time.
 
@@ -91,13 +91,13 @@ const node5 = graph.insert({name: 'node5'})
 
 // Add edges
 graph.addEdge(node1, node2)
+graph.addEdge(node2, node4)
 graph.addEdge(node1, node3)
-graph.addEdge(node1, node5)
-graph.addEdge(node3, node4)
-graph.addEdge(node4, node5)
+graph.addEdge(node3, node5)
+graph.addEdge(node5, node4)
 
 // Get the nodes in topologically sorted order
-graph.topologicallySortedNodes() // equals (roughly) [{name: 'node1'}, {name: 'node2'}, {name: 'node3'}, {name: 'node4'}, {name: 'node5'}]
+graph.topologicallySortedNodes() // returns roughly [{ name: 'node1' }, { name: 'node3' }, { name: 'node5' }, { name: 'node2' }, { name: 'node4' }]
 ```
 
 ## License

@@ -68,12 +68,12 @@ describe("The Readme", () => {
 
         // Add edges
         graph.addEdge(node1, node2)
+        graph.addEdge(node2, node4)
         graph.addEdge(node1, node3)
-        graph.addEdge(node1, node5)
-        graph.addEdge(node3, node4)
-        graph.addEdge(node4, node5)
+        graph.addEdge(node3, node5)
+        graph.addEdge(node5, node4)
 
         // Get the nodes in topologically sorted order
-        expect(graph.topologicallySortedNodes()).toEqual([{ name: 'node1' }, { name: 'node2' }, { name: 'node3' }, { name: 'node4' }, { name: 'node5' }])
+        expect(graph.topologicallySortedNodes()).toEqual([{ name: 'node1' }, { name: 'node3' }, { name: 'node5' }, { name: 'node2' }, { name: 'node4' }])
     })
 })

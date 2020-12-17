@@ -1,6 +1,13 @@
 import DirectedGraph from "./directedGraph";
 import { CycleError } from "./errors";
 
+/**
+ * # DirectedAcyclicGraph
+ *
+ * A DirectedAcyclicGraph is builds on a [[`DirectedGraph`]] but enforces acyclicality. You cannot add an edge to a DirectedAcyclicGraph that would create a cycle.
+ *
+ * @typeParam T `T` is the node type of the graph. Nodes can be anything in all the included examples they are simple objects.
+ */
 export default class DirectedAcyclicGraph<T> extends DirectedGraph<T> {
     private _topologicallySortedNodes?: Array<T>;
     protected hasCycle = false; 
