@@ -2,7 +2,7 @@
 
 This library provides some basic graph data structures and algorithms.
 
-Full docs are availible [here](https://segfaultx64.github.io/typescript-graph/)
+Full docs are availible [here](https://segfaultx64.github.io/typescript-graph/).
 
 It supports undirected graphs, directed graphs and directed acyclic graphs (including inforcing acyclicality). It does not support weighted graphs at this time.
 
