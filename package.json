@@ -1,7 +1,7 @@
 {
   "name": "typescript-graph",
   "homepage": "https://segfaultx64.github.io/typescript-graph/",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "",
   "keywords": [],
   "main": "dist/typescript-graph.umd.js",
