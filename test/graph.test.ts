@@ -12,7 +12,7 @@ var hash = require('object-hash');
   })
 
   it("can add a node", () => {
-    const graph = new Graph<{a: Number, b: string}>()
+    const graph = new Graph<{a: number, b: string}>()
 
     graph.insert({a: 1, b: 'b'});
 
@@ -27,7 +27,7 @@ var hash = require('object-hash');
   })
 
    it("can add a node with custom identity function", () => {
-     type NodeType = { a: Number, b: string }
+     type NodeType = { a: number, b: string }
      const graph = new Graph<NodeType>((n: NodeType) => n.a.toFixed(2))
 
      graph.insert({ a: 1, b: 'b' });
@@ -53,7 +53,7 @@ var hash = require('object-hash');
 
 
    it("can replace a node", () => {
-     const graph = new Graph<{ a: Number, b: string }>()
+     const graph = new Graph<{ a: number, b: string }>()
 
      graph.insert({ a: 1, b: 'b' });
      graph.replace({ a: 1, b: 'b' });
@@ -68,7 +68,7 @@ var hash = require('object-hash');
    })
 
    it("can replace a node with custom identity function", () => {
-     type NodeType = { a: Number, b: string }
+     type NodeType = { a: number, b: string }
      const graph = new Graph<NodeType>((n: NodeType) => n.a.toFixed(2))
 
      graph.insert({ a: 1, b: 'b' });
@@ -96,7 +96,7 @@ var hash = require('object-hash');
    })
 
    it("can upsert a node", () => {
-     type NodeType = { a: Number, b: string }
+     type NodeType = { a: number, b: string }
      const graph = new Graph<NodeType>((n: NodeType) => n.a.toFixed(2))
 
      graph.insert({ a: 1, b: 'b' });
@@ -118,7 +118,7 @@ var hash = require('object-hash');
   })
 
   it("can add an edge", () => {
-    type NodeType = { a: Number, b: string }
+    type NodeType = { a: number, b: string }
     const graph = new Graph<NodeType>((n: NodeType) => n.a.toFixed(2))
 
     graph.insert({ a: 1, b: 'b' });
@@ -143,7 +143,7 @@ var hash = require('object-hash');
   })
 
    it("can return the nodes", () => {
-     type NodeType = { a: Number, b: string }
+     type NodeType = { a: number, b: string }
      const graph = new Graph<NodeType>((n: NodeType) => n.a.toFixed(2))
 
      graph.insert({ a: 1, b: 'b' });
@@ -158,5 +158,22 @@ var hash = require('object-hash');
      expect(graph.getNodes()).toContainEqual({ a: 2, b: 'b' });
      expect(graph.getNodes()).toContainEqual({ a: 3, b: 'b' });
      expect(graph.getNodes()).toContainEqual({ a: 4, b: 'b' });
+   })
+
+   it("can return the nodes sorted", () => {
+     type NodeType = { a: number, b: string }
+     const graph = new Graph<NodeType>((n: NodeType) => n.a.toFixed(2))
+
+     graph.insert({ a: 2, b: 'b' });
+     graph.insert({ a: 4, b: 'b' });
+     graph.insert({ a: 1, b: 'b' });
+     graph.insert({ a: 3, b: 'b' });
+
+     expect(graph.getNodes((a, b) => (a.a - b.a))).toEqual([
+       { a: 1, b: 'b' },
+       { a: 2, b: 'b' },
+       { a: 3, b: 'b' },
+       { a: 4, b: 'b' }
+     ])
    })
  })

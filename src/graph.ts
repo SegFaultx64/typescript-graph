@@ -190,8 +190,16 @@ export default class Graph<T> {
 
   /**
    * This simply returns all the nodes stored in the graph
+   * 
+   * @param compareFunc An optional function that indicates the sort order of the returned array
    */
-  getNodes(): T[] {
-    return Array.from(this.nodes.values());
+  getNodes(compareFunc?: (a: T, b: T) => number): T[] {
+    const temp = Array.from(this.nodes.values());
+
+    if (compareFunc) {
+      return temp.sort(compareFunc)
+    }
+
+    return temp;
   }
 }
