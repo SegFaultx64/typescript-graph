@@ -6,7 +6,7 @@
   "keywords": [],
   "main": "dist/typescript-graph.umd.js",
   "module": "dist/typescript-graph.es5.js",
-  "typings": "dist/types/typescript-graph.d.ts",
+  "typings": "dist/types/index.ts",
   "files": [
     "dist"
   ],

@@ -187,4 +187,11 @@ export default class Graph<T> {
 
     this.adjacency[node1Index][node2Index] = 1
   }
+
+  /**
+   * This simply returns all the nodes stored in the graph
+   */
+  getNodes(): T[] {
+    return Array.from(this.nodes.values());
+  }
 }

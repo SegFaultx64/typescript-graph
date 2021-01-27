@@ -141,4 +141,22 @@ var hash = require('object-hash');
     expect((graph as any).adjacency[1][0]).toBe(1)
     expect((graph as any).adjacency[1][2]).toBeFalsy()
   })
+
+   it("can return the nodes", () => {
+     type NodeType = { a: Number, b: string }
+     const graph = new Graph<NodeType>((n: NodeType) => n.a.toFixed(2))
+
+     graph.insert({ a: 1, b: 'b' });
+
+     expect(graph.getNodes()).toEqual([{ a: 1, b: 'b' }])
+
+     graph.insert({ a: 2, b: 'b' });
+     graph.insert({ a: 3, b: 'b' });
+     graph.insert({ a: 4, b: 'b' });
+
+     expect(graph.getNodes()).toContainEqual({ a: 1, b: 'b' });
+     expect(graph.getNodes()).toContainEqual({ a: 2, b: 'b' });
+     expect(graph.getNodes()).toContainEqual({ a: 3, b: 'b' });
+     expect(graph.getNodes()).toContainEqual({ a: 4, b: 'b' });
+   })
  })
