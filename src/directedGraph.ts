@@ -1,5 +1,5 @@
 import { NodeDoesntExistError } from "./errors";
-import Graph from "./graph";
+import Graph, { Edge } from "./graph";
 
 /**
  * # DirectedGraph
@@ -129,5 +129,60 @@ export default class DirectedGraph<T> extends Graph<T> {
      */
     wouldAddingEdgeCreateCyle(fromNodeIdentity: string, toNodeIdentity: string): boolean {
         return this.hasCycle || fromNodeIdentity === toNodeIdentity || this.canReachFrom(toNodeIdentity, fromNodeIdentity);
+    }
+
+    /**
+     * Given a starting node this returns a new [[`DirectedGraph`]] containing all the nodes that can be reached. 
+     * Throws a [[`NodeDoesntExistError`]] if the start node does not exist.
+     * 
+     * @param startNodeIdentity The string identity of the node from which the subgraph search should start.
+     */
+    getSubGraphStartingFrom(startNodeIdentity: string): DirectedGraph<T> {
+        const nodeIndices = Array.from(this.nodes.keys());
+        const initalNode = this.nodes.get(startNodeIdentity)
+
+        if (!initalNode) {
+            throw new NodeDoesntExistError(startNodeIdentity);
+        }
+
+        const recur = (startNodeIdentity: string, nodesToInclude: T[]): T[] => {
+            let toReturn = [...nodesToInclude];
+            const nodeIndex = nodeIndices.indexOf(startNodeIdentity);
+            this.adjacency[nodeIndex].forEach((hasAdj, index) => {
+                if (hasAdj === 1 && !nodesToInclude.find(n => this.nodeIdentity(n) === nodeIndices[index])) {
+                    const newNode = this.nodes.get(nodeIndices[index])
+                    
+                    if (newNode) {
+                        toReturn = [...recur(nodeIndices[index], toReturn), newNode]
+                    }
+                }
+            })
+
+            return toReturn;
+        }
+
+        const newGraph = new DirectedGraph<T>(this.nodeIdentity);
+        const nodeList = recur(startNodeIdentity, [initalNode])
+        const includeIdents = nodeList.map(t => this.nodeIdentity(t));
+        Array.from(this.nodes.values()).forEach(n => {
+            if (includeIdents.includes(this.nodeIdentity(n))) {
+                newGraph.insert(n)
+            }
+        });
+        newGraph.adjacency = this.subAdj(nodeList);
+        return newGraph
+    }
+
+    private subAdj(include: T[]): Array<Array<Edge>> {
+        const includeIdents = include.map(t => this.nodeIdentity(t));
+        const nodeIndices = Array.from(this.nodes.keys());
+
+        return this.adjacency.reduce<Array<Array<Edge>>>((carry, cur, index) => {
+            if (includeIdents.includes(nodeIndices[index])) {
+                return [...carry, cur.filter((_, index) => includeIdents.includes(nodeIndices[index]))]
+            } else {
+                return carry
+            }
+        }, [])
     }
 }

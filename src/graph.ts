@@ -120,7 +120,7 @@ export default class Graph<T> {
     
     this.nodes.set(this.nodeIdentity(node), node)
     this.adjacency.map(adj => adj.push(0))
-    this.adjacency.push(new Array(this.adjacency.length + 1))
+    this.adjacency.push(new Array(this.adjacency.length + 1).fill(0))
 
     return this.nodeIdentity(node);
   }

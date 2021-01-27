@@ -115,4 +115,14 @@ export default class DirectedAcyclicGraph<T> extends DirectedGraph<T> {
 
         return toReturn
     }
+
+    /**
+     * Given a starting node this returns a new [[`DirectedA`]] containing all the nodes that can be reached. 
+     * Throws a [[`NodeDoesntExistError`]] if the start node does not exist.
+     * 
+     * @param startNodeIdentity The string identity of the node from which the subgraph search should start.
+     */
+    getSubGraphStartingFrom(startNodeIdentity: string): DirectedAcyclicGraph<T> {
+        return DirectedAcyclicGraph.fromDirectedGraph(super.getSubGraphStartingFrom(startNodeIdentity));
+    }
 }

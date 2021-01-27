@@ -91,4 +91,45 @@ describe("Directed Acyclic Graph", () => {
     expect([{ name: 'A' }, { name: 'F' }]).toContainEqual(topoList4[1])
   })
 
+  it("can return a subgraph based on walking from a start node", () => {
+    type NodeType = { name: string }
+    const graph = new DirectedAcyclicGraph<NodeType>((n: NodeType) => n.name)
+
+    graph.insert({ name: 'A' })
+    graph.insert({ name: 'B' })
+    graph.insert({ name: 'C' })
+
+    const testGraph = new DirectedAcyclicGraph<NodeType>((n: NodeType) => n.name);
+    testGraph.insert({ name: 'A' })
+
+    expect(graph.getSubGraphStartingFrom('A').getNodes()).toEqual(testGraph.getNodes())
+
+    graph.addEdge('A', 'B')
+    graph.addEdge('B', 'C')
+
+    const subGraph = graph.getSubGraphStartingFrom('A');
+
+    expect(subGraph.getNodes()).toContainEqual({ name: 'A' })
+    expect(subGraph.getNodes()).toContainEqual({ name: 'B' })
+    expect(subGraph.getNodes()).toContainEqual({ name: 'C' })
+    expect(subGraph.canReachFrom('A', 'C')).toBe(true);
+
+    graph.insert({ name: 'D' })
+
+    const subGraph2 = graph.getSubGraphStartingFrom('A');
+
+    expect(subGraph2.getNodes()).not.toContainEqual({ name: 'D' })
+
+    graph.addEdge('B', 'D')
+
+    const subGraph3 = graph.getSubGraphStartingFrom('A');
+
+    expect(subGraph3.getNodes()).toContainEqual({ name: 'D' })
+    expect(subGraph3.canReachFrom('A', 'C')).toBe(true);
+    expect(subGraph3.canReachFrom('A', 'D')).toBe(true);
+    expect(subGraph3.canReachFrom('B', 'D')).toBe(true);
+    expect(subGraph3.canReachFrom('C', 'D')).toBe(false);
+
+  })
+
 })
