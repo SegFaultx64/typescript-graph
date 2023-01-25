@@ -1,7 +1,7 @@
 {
   "name": "typescript-graph",
   "homepage": "https://segfaultx64.github.io/typescript-graph/",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "",
   "keywords": [],
   "main": "dist/typescript-graph.umd.js",
@@ -20,7 +20,7 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts' --fix",
+    "lint": "tslint  --projsect tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts' --fix",
     "prebuild": "rimraf dist",
     "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
     "start": "rollup -c rollup.config.ts -w",
