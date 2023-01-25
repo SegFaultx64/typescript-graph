@@ -32,6 +32,10 @@ const node3 = graph.insert({name: 'node3', count: 15, metadata: {color: 'blue', 
 // Add edges between the nodes we created.
 graph.addEdge(node1, node2)
 graph.addEdge(node2, node3)
+
+// Get a node
+const node: NodeType = graph.getNode(node2);
+
 ```
 
 ## Examples
